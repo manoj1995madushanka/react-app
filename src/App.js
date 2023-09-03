@@ -4,14 +4,15 @@ import { useState,useEffect } from 'react';
 function App({library}) {
 
   const [emotion,setEmotion]=useState("Happy");
+  const [secondary,setSecondary] = useState("Energy");
 
   useEffect(()=>{
     console.log(`I am ${emotion} right now.`);
-  },[emotion]);
+  },[emotion,secondary]);
 
   useEffect(() => {
-    console.log(`It's ${emotion} around here!`);
-  }, [emotion]);
+    console.log(`It's ${secondary} around here!`);
+  }, [secondary]);
 
   return (
     <div className="App">
