@@ -1,14 +1,14 @@
 import './App.css';
-
-// destructuring array
-const [firstCity,secondCity]=["Galle","Colombo"];
-console.log(firstCity);
+import { useState } from 'react';
 
 function App({library}) {
+
+  const [emotion,setEmotion]=useState("Happy");
+
   return (
     <div className="App">
-      <h1>Hello from {library}</h1>
-    
+      <h1>Current emotion is {emotion}</h1>
+      <button onClick={()=>setEmotion("Sad")}>Sad</button>
     </div>
   );
 }
