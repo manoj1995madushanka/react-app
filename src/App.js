@@ -1,40 +1,49 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function useInput(initialValue) {
-  const [value, setValue] =
-    useState(initialValue);
-  return [
-    {
-      value,
-      onChange: (e) => setValue(e.target.value)
-    },
-    () => setValue(initialValue)
-  ];
+function GithubUser({ name, location, avatar }) {
+  return (
+    <div>
+      <h1>{name}</h1>
+      <p>{location}</p>
+      <img src={avatar} height={150} />
+    </div>
+  );
 }
 
 function App() {
-  const [titleProps, resetTitle] = useInput("");
-  const [colorProps, resetColor] =
-    useState("#000000");
-  const submit = (e) => {
-    e.preventDefault();
-    alert(
-      `${titleProps.value}, ${colorProps.value}`
+
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`https://api.github.com/users/manoj1995madushanka`)
+      .then((response) => response.json())
+      .then(setData)
+      .then(()=> setLoading(false))
+      .catch(setError);
+  }, []) // empty array means only one time(stating time) fetching data
+
+  if(loading) return <h1>Loading...</h1>
+  if(error){
+    return <pre>{JSON.stringify(error)}</pre>
+  }
+  if(!data) return null;
+
+  if (data) {
+    return (
+      <GithubUser
+        name={data.name}
+        location={data.location}
+        avatar={data.avatar_url}
+      ></GithubUser>
     );
-    resetTitle();
-    resetColor();
-  };
+  }
+
   return (
-    <form onSubmit={submit}>
-      <input
-        {...titleProps}
-        type="text"
-        placeholder="color title..."
-      />
-      <input {...colorProps} type="color" />
-      <button>ADD</button>
-    </form>
+    <h1>Data</h1>
   );
 }
 
