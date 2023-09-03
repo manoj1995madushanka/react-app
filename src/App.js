@@ -1,5 +1,9 @@
 import './App.css';
 
+// destructuring array
+const [firstCity,secondCity]=["Galle","Colombo"];
+console.log(firstCity);
+
 function App({library}) {
   return (
     <div className="App">
