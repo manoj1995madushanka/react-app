@@ -1,9 +1,17 @@
 import './App.css';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 function App({library}) {
 
   const [emotion,setEmotion]=useState("Happy");
+
+  useEffect(()=>{
+    console.log(`I am ${emotion} right now.`);
+  },[emotion]);
+
+  useEffect(() => {
+    console.log(`It's ${emotion} around here!`);
+  }, [emotion]);
 
   return (
     <div className="App">
